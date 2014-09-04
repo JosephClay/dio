@@ -1,6 +1,6 @@
 {
   "name": "dio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "DOM read/write microlib to avoid layout thrashing",
   "main": "dio.js",
   "scripts": {

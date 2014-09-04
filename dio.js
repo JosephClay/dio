@@ -368,4 +368,6 @@
         }
     };
 
+    return new DIO();
+
 }(window));
