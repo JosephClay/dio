@@ -1,25 +1,35 @@
-/**
- * DIO
- * 
- * Originally from:
- * https://github.com/wilsonpage/fastdom
- * 
- * Eliminates layout thrashing
- * by batching DOM read/write
- * interactions.
- *
- * - Prefix private api methods with "_"
- * - Remove cancelAnimationFrame as it's not used
- * - Reduced repeat assignments to the prototype to reduce file size
- * - Made uniqueId truely private
- * - Made "mode" an int comparison
- * - Removed context passing
- * - Pulled out the frame run and binded it to this
- * - Abstract out function checks
- * - Removed try catching
- * - Remove requestAnimationFrame prefix checking
- */
-;(function(root) {
+(function(name, definition) {
+
+    if (typeof define === 'function') { // RequireJS
+        define(function() { return definition; });
+    } else if (typeof module !== 'undefined' && module.exports) { // CommonJS
+        module.exports = definition;
+    } else { // Browser
+        this[name] = definition;
+    }
+
+})('dio', function(root) {
+    /**
+     * DIO
+     *
+     * Originally from:
+     * https://github.com/wilsonpage/fastdom
+     *
+     * Eliminates layout thrashing
+     * by batching DOM read/write
+     * interactions.
+     *
+     * - Prefix private api methods with "_"
+     * - Remove cancelAnimationFrame as it's not used
+     * - Reduced repeat assignments to the prototype to reduce file size
+     * - Made uniqueId truely private
+     * - Made "mode" an int comparison
+     * - Removed context passing
+     * - Pulled out the frame run and binded it to this
+     * - Abstract out function checks
+     * - Removed try catching
+     * - Remove requestAnimationFrame prefix checking
+     */
 
     var raf = root.requestAnimationFrame ||
         function(cb) { return root.setTimeout(cb, 1000 / 60); },
@@ -358,16 +368,4 @@
         }
     };
 
-    /**
-     * Expose 'dio'
-     */
-    var dio = new DIO();
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = dio;
-    } else if (typeof define === 'function' && define.amd) {
-        define(function() { return dio; });
-    } else {
-        root.dio = dio;
-    }
-
-}(this));
+}(window));
