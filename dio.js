@@ -316,7 +316,8 @@
         },
 
         _runFrame: function() {
-            var fn = self.frames.shift();
+            var self = this,
+                fn = self.frames.shift();
 
             // If no more frames,
             // stop looping
